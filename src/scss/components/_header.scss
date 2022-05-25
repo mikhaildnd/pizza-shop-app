@@ -1,0 +1,49 @@
+@import '../variables';
+
+.header {
+  border-bottom: 1px solid $gray-line;
+  padding: 40px 0;
+
+  .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &__logo {
+    display: flex;
+    align-items: center;
+
+    img {
+      margin-right: 3px;
+      width: 30px;
+      height: 30px;
+      @media (min-width: 576px) {
+        width: 30px;
+        height: 38px;
+        margin-right: 15px;
+      }
+    }
+  }
+
+  &__text {
+    h1 {
+      color: #181818;
+      font-size: 14px;
+      letter-spacing: 1%;
+      text-transform: uppercase;
+      font-weight: 800;
+      @media (min-width: 576px) {
+        font-size: 24px;
+      }
+    }
+
+    p {
+      display: none;
+      @media (min-width: 576px) {
+        display: block;
+        color: #7b7b7b;
+      }
+    }
+  }
+}

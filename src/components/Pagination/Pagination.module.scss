@@ -1,0 +1,42 @@
+.root {
+  /* Если в компоненте есть кастомные (не написанные мной) классы, 
+  то чтобы поменять им стили нужно обращаться к ним ерез :global
+  :global {
+    .selected {
+      background-color: tomato;
+    }
+  } */
+
+  display: inline-grid;
+  grid-auto-flow: column;
+  column-gap: 10px;
+  // grid-template-columns: repeat(auto);
+
+  li {
+    a {
+      display: grid;
+      justify-content: center;
+      align-items: center;
+      min-width: 45px;
+      height: 45px;
+      padding: 10px;
+      border: 1px solid #fe5f1e;
+      border-radius: 30px;
+      cursor: pointer;
+      color: #fe5f1e;
+      &:hover {
+        background-color: #fe5f1e;
+        color: #fff;
+      }
+    }
+  }
+
+  :global {
+    .selected {
+      a {
+        background-color: #fe5f1e;
+        color: #fff;
+      }
+    }
+  }
+}
