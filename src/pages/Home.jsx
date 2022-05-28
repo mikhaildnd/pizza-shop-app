@@ -1,4 +1,5 @@
 import { useState, useEffect, useContext } from 'react';
+import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { setCategoryId } from '../redux/slices/filterSlice';
@@ -35,12 +36,12 @@ const Home = () => {
     const order = sortType.includes('-') ? 'asc' : 'desc';
     const search = searchValue ? searchValue : '';
 
-    fetch(
-      `https://628bd2d1667aea3a3e36d84e.mockapi.io/products?page=${currentPage}&limit=${limitProductsOnPage}&${category}&sortBy=${sortBy}&order=${order}&search=${search}`,
-    )
-      .then((res) => res.json())
+    axios
+      .get(
+        `https://628bd2d1667aea3a3e36d84e.mockapi.io/products?page=${currentPage}&limit=${limitProductsOnPage}&${category}&sortBy=${sortBy}&order=${order}&search=${search}`,
+      )
       .then((res) => {
-        setProducts(res);
+        setProducts(res.data);
         setIsLoadingProducts(false);
       });
   }, [categoryId, sortType, searchValue, currentPage]);
