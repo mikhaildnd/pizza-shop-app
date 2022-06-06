@@ -36,6 +36,7 @@ const cartSlice = createSlice({
 
       if (duplicateItem && duplicateItem.count > 1) {
         duplicateItem.count--;
+        state.totalPrice = state.totalPrice - duplicateItem.price;
       }
     },
   },
