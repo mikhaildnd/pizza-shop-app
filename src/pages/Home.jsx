@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import { setCategoryId, setCurrentPage, setFilters } from '../redux/slices/filterSlice';
+import { setProducts } from '../redux/slices/pizzasSlice';
 import Categories from '../components/Categories';
 import Sort, { sortList } from '../components/Sort';
 import PizzaBlock from '../components/PizzaBlock';
@@ -18,10 +19,10 @@ const Home = () => {
   const isSearch = useRef(false);
   const isMounted = useRef(false);
 
+  const products = useSelector((state) => state.pizzas.products);
   const { categoryId, sort, currentPage } = useSelector((state) => state.filter);
 
   const { searchValue } = useContext(SearchContext);
-  const [products, setProducts] = useState([]);
   const [isLoadingProducts, setIsLoadingProducts] = useState(true);
 
   // todo сделать кнопку "кол-во отображаемых прродуктов"
@@ -44,10 +45,10 @@ const Home = () => {
     const search = searchValue ? searchValue : '';
 
     try {
-      const res = await axios.get(
+      const { data } = await axios.get(
         `https://628bd2d1667aea3a3e36d84e.mockapi.io/products?page=${currentPage}&limit=${limitProductsOnPage}&${category}&sortBy=${sortBy}&order=${order}&search=${search}`,
       );
-      setProducts(res.data);
+      dispatch(setProducts(data));
     } catch (error) {
       console.log(error);
     } finally {
@@ -99,16 +100,7 @@ const Home = () => {
     isSearch.current = false;
   }, [categoryId, sort.sortProperty, searchValue, currentPage]);
 
-  const pizzas = products
-    //Фильтрация подойдет для статического массива
-    // .filter((obj) => {
-    //   if (obj.title.toLowerCase().includes(searchValue.toLowerCase())) {
-    //     return true;
-    //   }
-
-    //   return false;
-    // })
-    .map((obj) => <PizzaBlock key={obj.id} {...obj} />);
+  const pizzas = products.map((obj) => <PizzaBlock key={obj.id} {...obj} />);
 
   const skeletons = [...new Array(limitProductsOnPage)].map((_, idx) => <Skeleton key={idx} />);
 
