@@ -1,6 +1,7 @@
 @import '../variables';
 
 .pizza-block {
+  position: relative;
   text-align: center;
 
   &__image {
@@ -14,10 +15,28 @@
     font-size: 20px;
     font-weight: 900;
     margin-bottom: 20px;
-    overflow: hidden;
+  }
+
+  &__link {
+    color: inherit;
+    outline: none;
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+    }
+    &:focus-visible {
+      &::before {
+        box-shadow: 0 0 5px 2px $orange;
+      }
+    }
   }
 
   &__selector {
+    position: relative;
     display: flex;
     background-color: #f3f3f3;
     border-radius: 10px;
@@ -50,6 +69,7 @@
   }
 
   &__bottom {
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: space-between;
