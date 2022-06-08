@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 
 const address = `https://628bd2d1667aea3a3e36d84e.mockapi.io/products/`;
@@ -8,6 +8,7 @@ const FullPizza = () => {
   const [pizza, setPizza] = useState('');
   const { title, imageUrl } = pizza;
   const { id } = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchPizza = async () => {
@@ -17,6 +18,7 @@ const FullPizza = () => {
         setPizza(data);
       } catch (error) {
         alert(error.message);
+        navigate('/');
       }
     };
 
