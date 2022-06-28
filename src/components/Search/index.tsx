@@ -1,19 +1,19 @@
-import { useRef, useCallback, useState } from 'react';
+import React, { FC, useRef, useCallback, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import debounce from 'lodash.debounce';
 
-import { setSearchValue } from '../../redux/slices/filterSlice';
+import { setSearchValue } from '../../redux/filter/slice';
 import styles from './Search.module.scss';
 
-const Search = () => {
+export const Search: FC = () => {
   const dispatch = useDispatch();
   const [inputLocalValue, setInputLocalValue] = useState(''); //locally
-  const inputRef = useRef();
+  const inputRef = useRef<HTMLInputElement>(null);
 
-  const onClickClear = () => {
+  const onClickClear = (evt?: React.MouseEvent<SVGSVGElement>) => {
     setSearchValue('');
     setInputLocalValue('');
-    inputRef.current.focus();
+    inputRef.current?.focus();
   };
 
   const updateRequestSearchValue = useCallback(
@@ -23,7 +23,7 @@ const Search = () => {
     [],
   );
 
-  const onChangeInput = (e) => {
+  const onChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputLocalValue(e.target.value);
     updateRequestSearchValue(e.target.value);
   };
@@ -49,5 +49,3 @@ const Search = () => {
     </div>
   );
 };
-
-export default Search;

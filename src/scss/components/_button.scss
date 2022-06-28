@@ -33,6 +33,24 @@
     transform: translateY(1px);
   }
 
+  &:disabled {
+    background-color: transparent;
+    border-color: grey;
+    opacity: 0.4;
+    svg path {
+      fill: grey;
+    }
+    &:hover {
+      background-color: transparent;
+      svg path {
+        fill: grey;
+      }
+    }
+    &:active {
+      transform: none;
+    }
+  }
+
   &--circle {
     display: flex;
     align-items: center;

@@ -1,15 +1,18 @@
+import { FC } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
-import CartItem from '../CartItem/index';
-import { clearItems, selectCart } from '../../redux/slices/cartSlice';
+import { CartItem } from '../CartItem/index';
+import { selectCart } from '../../redux/cart/selectors';
+import { clearItems } from '../../redux/cart/slice';
 import CartEmpty from '../CartEmpty';
 
-const CartBlock = () => {
+export const CartBlock: FC = () => {
   const dispatch = useDispatch();
   const { totalPrice, items } = useSelector(selectCart);
 
-  const totalCount = items.reduce((sum, obj) => {
+  const totalCount = items.reduce((sum: number, obj: any) => {
+    //todo types
     return obj.count + sum;
   }, 0);
 
@@ -97,9 +100,13 @@ const CartBlock = () => {
         </div>
       </div>
       <div className="content__items">
-        {items.map((item) => (
-          <CartItem key={item.id} {...item} />
-        ))}
+        {items.map(
+          (
+            item: any, //todo type
+          ) => (
+            <CartItem key={item.id} {...item} />
+          ),
+        )}
       </div>
       <div className="cart__bottom">
         <div className="cart__bottom-details">
@@ -139,5 +146,3 @@ const CartBlock = () => {
     </div>
   );
 };
-
-export default CartBlock;

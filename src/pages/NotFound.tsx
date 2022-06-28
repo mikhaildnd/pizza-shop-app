@@ -1,6 +1,7 @@
-import NotFoundBlock from '../components/NotFoundBlock';
+import { FC } from 'react';
+import { NotFoundBlock } from '../components';
 
-const NotFound = () => {
+const NotFound: FC = () => {
   return (
     <div className="container">
       <NotFoundBlock />
