@@ -1,15 +1,26 @@
+import { FC, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
-import Search from './Search/index';
+import { Search } from './';
 import logo from '../assets/img/pizza-logo.svg';
-import { selectCart } from '../redux/slices/cartSlice'; //redux-селектор
+import { selectCart } from '../redux/cart/selectors';
 
-const Header = () => {
+const Header: FC = () => {
   const { totalPrice, items } = useSelector(selectCart);
   const location = useLocation();
+  const totalCount = items.reduce((sum: number, item: any) => sum + item.count, 0);
 
-  const totalCount = items.reduce((sum, item) => sum + item.count, 0);
+  const isMounted = useRef(false);
+
+  useEffect(() => {
+    if (isMounted.current) {
+      const data = JSON.stringify(items);
+
+      localStorage.setItem('cart', data);
+    }
+    isMounted.current = true;
+  }, [items]);
 
   return (
     <div className="header">
@@ -25,11 +36,11 @@ const Header = () => {
             </div>
           </div>
         </Link>
-        <Search />
+        {location.pathname !== '/cart' && <Search />}
         <div className="header__cart">
           <Link
             to="/cart"
-            style={location.pathname !== '/cart' ? null : { display: 'none' }}
+            style={location.pathname !== '/cart' ? undefined : { display: 'none' }}
             className="button button--cart">
             <span>{totalPrice} ₽</span>
             <div className="button__delimiter"></div>

@@ -1,6 +1,7 @@
-import CartBlock from '../components/CartBlock';
+import { FC } from 'react';
+import { CartBlock } from '../components';
 
-const Cart = () => {
+const Cart: FC = () => {
   return (
     <div className="container container--cart">
       <CartBlock />

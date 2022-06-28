@@ -1,22 +1,23 @@
+import { FC } from 'react';
 import { useDispatch } from 'react-redux';
+import { CartItemType } from '../../@types/types';
 
-import { addItem, minusItem, removeItem } from '../../redux/slices/cartSlice';
+import { addItem, minusItem, removeItem } from '../../redux/cart/slice';
 
-const CartItem = ({ id, title, price, size, count, imageUrl, type }) => {
+export const CartItem: FC<CartItemType> = ({ id, title, price, size, count, imageUrl, type }) => {
   const dispatch = useDispatch();
 
   const onClickPlus = () => {
-    dispatch(addItem({ id }));
+    dispatch(addItem({ id } as CartItemType));
   };
 
   const onClickMinus = () => {
-    dispatch(minusItem({ id }));
+    dispatch(minusItem({ id } as CartItemType));
   };
 
   const onClickRemove = () => {
     window.confirm('Очистить корзину?');
-
-    dispatch(removeItem(id));
+    dispatch(removeItem({ id } as CartItemType));
   };
 
   return (
@@ -32,6 +33,7 @@ const CartItem = ({ id, title, price, size, count, imageUrl, type }) => {
       </div>
       <div className="cart__item-count">
         <button
+          disabled={count === 1}
           onClick={onClickMinus}
           className="button button--outline button--circle cart__item-count-minus">
           <svg
@@ -96,5 +98,3 @@ const CartItem = ({ id, title, price, size, count, imageUrl, type }) => {
     </div>
   );
 };
-
-export default CartItem;
