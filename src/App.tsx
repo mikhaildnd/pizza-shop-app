@@ -21,16 +21,16 @@ const App = () => {
   return (
     <Routes>
       <Route path="/" element={<MainLayout />}>
-        <Route path="" element={<Home />}></Route>
+        <Route path="" element={<Home />}/>
         <Route
           path="cart"
           element={
             <Suspense fallback={<div>Идет загрузка корзины</div>}>
               <Cart />
             </Suspense>
-          }></Route>
-        <Route path="pizza/:id" element={<FullPizza />}></Route>
-        <Route path="*" element={<NotFound />}></Route>
+          }/>
+        <Route path="pizza/:id" element={<FullPizza />}/>
+        <Route path="*" element={<NotFound />}/>
       </Route>
     </Routes>
   );
